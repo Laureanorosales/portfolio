@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Laureano Rosales — Portfolio
 
-## Getting Started
+Portfolio personal de **Laureano Rosales**, frontend developer en formación. Construido con Next.js, React y CSS Modules, con tipografía y paleta de colores cuidadosamente elegidas para transmitir una estética limpia y moderna.
 
-First, run the development server:
+## 🔗 Secciones
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+| Sección | Descripción |
+|---------|-------------|
+| **Hero** | Presentación con nombre, descripción, stack actual con barras de progreso y badge de disponibilidad |
+| **Proyectos** | Grilla de proyectos (próximamente) |
+| **Skills** | Tarjetas de tecnologías: JavaScript, React, Next.js, CSS |
+| **Contacto** | Links a GitHub y LinkedIn |
+| **Footer** | Firma y año |
+
+## 🛠️ Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **UI Library**: [React 19](https://react.dev/)
+- **Lenguaje**: TypeScript
+- **Estilos**: CSS Modules + Variables CSS personalizadas
+- **Tipografía**: DM Sans & DM Serif Display (Google Fonts)
+- **Iconos**: [Tabler Icons](https://tabler.io/icons) (webfont)
+
+## 📁 Estructura
+
+```
+app/
+├── layout.tsx              # Root layout (fuentes, metadata)
+├── page.tsx                # Página principal
+├── globals.css             # Variables CSS, reset, estilos base
+└── components/
+    ├── Navbar/             # Barra de navegación con links de anclaje
+    ├── Hero/               # Sección de presentación con stack
+    ├── Projects/           # Grilla de proyectos
+    ├── Skills/             # Tarjetas de tecnologías
+    ├── Contact/            # Links de contacto (GitHub, LinkedIn)
+    └── Footer/             # Pie de página
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎨 Design Tokens
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+El diseño usa una paleta cálida definida como variables CSS en `globals.css`:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Valor | Uso |
+|----------|-------|-----|
+| `--bg` | `#f8f6f1` | Fondo principal |
+| `--bg-card` | `#edeae3` | Fondo de tarjetas |
+| `--accent` | `#6b7c5e` | Color de acento (verde musgo) |
+| `--text-muted` | `#666` | Texto secundario |
+| `--font-sans` | DM Sans | Cuerpo |
+| `--font-serif` | DM Serif Display | Títulos / headings |
 
-## Learn More
+## 🚀 Correr localmente
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Instalar dependencias
+npm install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Servidor de desarrollo
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-## Deploy on Vercel
+## 📬 Contacto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **GitHub**: [Laureanorosales](https://github.com/Laureanorosales)
+- **LinkedIn**: [Laureano Rosales](https://www.linkedin.com/in/laureano-rosales-6b3425239)

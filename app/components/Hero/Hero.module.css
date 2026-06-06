@@ -1,0 +1,145 @@
+.hero {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	min-height: 88vh;
+	padding: 0 3rem;
+	align-items: center;
+	gap: 4rem;
+}
+
+.text h1 {
+	font-family: var(--font-serif);
+	font-size: clamp(3rem, 6vw, 5.5rem);
+	line-height: 1.05;
+	letter-spacing: -0.03em;
+	margin-bottom: 1.5rem;
+}
+
+.text h1 em {
+	font-style: italic;
+	color: var(--accent);
+}
+
+.text p {
+	font-size: 1rem;
+	color: var(--text-muted);
+	line-height: 1.7;
+	max-width: 380px;
+	margin-bottom: 2.5rem;
+	font-weight: 300;
+}
+
+.actions {
+	display: flex;
+	gap: 1rem;
+}
+
+.btnPrimary {
+	background: var(--text);
+	color: var(--bg);
+	padding: 0.8rem 2rem;
+	font-size: 0.85rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	transition: opacity 0.2s;
+}
+
+.btnPrimary:hover {
+	opacity: 0.8;
+}
+
+.btnOutline {
+	background: transparent;
+	color: var(--text);
+	padding: 0.8rem 2rem;
+	border: 0.5px solid var(--text);
+	font-size: 0.85rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	transition: all 0.2s;
+}
+
+.btnOutline:hover {
+	background: var(--text);
+	color: var(--bg);
+}
+
+.card {
+	background: var(--bg-hero-card);
+	padding: 3rem;
+	position: relative;
+}
+
+.card::before {
+	content: '';
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	right: -12px;
+	bottom: -12px;
+	border: 0.5px solid var(--border);
+	z-index: -1;
+}
+
+.label {
+	font-size: 0.7rem;
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+	color: var(--text-hint);
+	margin-bottom: 1rem;
+}
+
+.stack {
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+}
+
+.stackItem {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.6rem 0;
+	border-bottom: 0.5px solid var(--border);
+	font-size: 0.9rem;
+}
+
+.barWrap {
+	width: 80px;
+	height: 2px;
+	background: var(--border);
+	overflow: hidden;
+}
+
+.bar {
+	height: 100%;
+	background: var(--accent);
+}
+
+.badge {
+	margin-top: 2rem;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.75rem;
+	color: var(--accent);
+	font-weight: 500;
+}
+
+.dot {
+	width: 6px;
+	height: 6px;
+	background: var(--accent);
+	border-radius: 50%;
+	animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.3;
+	}
+}
