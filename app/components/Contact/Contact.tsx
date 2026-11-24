@@ -2,44 +2,13 @@ import styles from './Contact.module.css';
 
 export default function Contact() {
 	return (
-		<section id='contacto' className={styles.section}>
-			<div className={styles.header}>
-				<h2>Contacto</h2>
-				<div className={styles.line} />
-			</div>
-			<div className={styles.grid}>
-				<div className={styles.info}>
-					<h3>Hablemos.</h3>
-					<p>
-						Estoy buscando mis primeras oportunidades como frontend developer. Si tenés un proyecto o una
-						posición que creas que puede interesarme, escribime.
-					</p>
-				</div>
-				<div className={styles.links}>
-					<a
-						href='https://github.com/Laureanorosales'
-						target='_blank'
-						rel='noopener noreferrer'
-						className={styles.link}>
-						<i className='ti ti-brand-github' aria-hidden='true' />
-						<div>
-							<span className={styles.linkLabel}>GitHub</span>
-							Laureanorosales
-						</div>
-						<i className='ti ti-arrow-right' style={{ marginLeft: 'auto' }} aria-hidden='true' />
-					</a>
-					<a
-						href='https://www.linkedin.com/in/laureano-rosales-6b3425239'
-						target='_blank'
-						rel='noopener noreferrer'
-						className={styles.link}>
-						<i className='ti ti-brand-linkedin' aria-hidden='true' />
-						<div>
-							<span className={styles.linkLabel}>LinkedIn</span>
-							Laureano Rosales
-						</div>
-						<i className='ti ti-arrow-right' style={{ marginLeft: 'auto' }} aria-hidden='true' />
-					</a>
+		<section id="contacto" className={`section ${styles.contact}`} aria-labelledby="contacto-titulo">
+			<h2 id="contacto-titulo" className="section-title" data-reveal>Contacto</h2>
+			<div>
+				<p>Busco mi primera oportunidad en desarrollo frontend. También estoy abierto a propuestas freelance.</p>
+				<div className="actions">
+					<a className="button button-primary" href="https://www.linkedin.com/in/laureano-rosales-6b3425239">Escribime en LinkedIn <span aria-hidden="true">↗</span></a>
+					<a className="button" href="https://github.com/Laureanorosales">GitHub <span aria-hidden="true">↗</span></a>
 				</div>
 			</div>
 		</section>

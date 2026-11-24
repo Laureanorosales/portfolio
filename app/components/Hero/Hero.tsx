@@ -1,49 +1,24 @@
+import Link from 'next/link';
+import { dtfSheet } from '../../projects';
 import styles from './Hero.module.css';
 
-export default function Hero() {
+export default function Hero({ hasCv }: { hasCv: boolean }) {
 	return (
-		<section className={styles.hero}>
-			<div className={styles.text}>
-				<h1>
-					Laureano
-					<br />
-					<em>Rosales</em>
-				</h1>
-				<p>
-					Frontend developer en formación. Construyo interfaces limpias, funcionales y pensadas en las
-					personas.
-				</p>
-				<div className={styles.actions}>
-					<a href='#proyectos' className={styles.btnPrimary}>
-						Ver proyectos
-					</a>
-					<a href='#contacto' className={styles.btnOutline}>
-						Contacto
-					</a>
+		<section className={styles.hero} aria-labelledby="nombre">
+			<div className={styles.content}>
+				<p className={styles.availability}><span /> Abierto a oportunidades laborales</p>
+				<h1 id="nombre" className={styles.name}>Laureano<br />Rosales<span>.</span></h1>
+				<p className={styles.intro}>Desarrollador frontend en formación. Aprendo de forma autodidacta y creo soluciones digitales para problemas concretos.</p>
+				<div className="actions">
+					<Link className="button button-primary" href={dtfSheet.caseUrl}>Explorar DTF Sheet <span aria-hidden="true">↗</span></Link>
+					<a className="button" href="https://github.com/Laureanorosales">GitHub <span aria-hidden="true">↗</span></a>
+					{hasCv ? <a className="button" href="/cv.pdf" download>Descargar CV <span aria-hidden="true">↓</span></a> : <button className="button" type="button" disabled>CV aún no disponible</button>}
 				</div>
 			</div>
-
-			<div className={styles.card}>
-				<div className={styles.label}>Stack actual</div>
-				<div className={styles.stack}>
-					{[
-						{ name: 'JavaScript', level: 75 },
-						{ name: 'React', level: 60 },
-						{ name: 'Next.js', level: 45 },
-						{ name: 'CSS', level: 80 },
-					].map((tech) => (
-						<div key={tech.name} className={styles.stackItem}>
-							<span>{tech.name}</span>
-							<div className={styles.barWrap}>
-								<div className={styles.bar} style={{ width: `${tech.level}%` }} />
-							</div>
-						</div>
-					))}
-				</div>
-				<div className={styles.badge}>
-					<span className={styles.dot} />
-					Disponible para trabajar
-				</div>
+			<div className={styles.art} aria-hidden="true">
+				<div className={styles.orbit} /><div className={styles.orbitInner} />
+				<div className={styles.tileOne} /><div className={styles.tileTwo} /><div className={styles.tileThree} />
+				<span className={styles.cross}>✳</span><span className={styles.artCaption}>IDEA / PROCESO / RESULTADO</span>
 			</div>
 		</section>
 	);

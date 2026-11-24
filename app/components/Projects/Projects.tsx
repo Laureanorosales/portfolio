@@ -1,58 +1,38 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import { projects } from '../../projects';
 import styles from './Projects.module.css';
-
-const projects = [
-	{
-		title: 'Gifs App',
-		description: 'Aplicación para buscar y explorar GIFs usando la API de Giphy. Construida con Angular y TypeScript.',
-		tags: ['Angular', 'TypeScript', 'Giphy API'],
-		image: '/gifs-app-preview.png',
-		url: 'https://github.com/Laureanorosales/03-gifs-app',
-	},
-];
 
 export default function Projects() {
 	return (
-		<section id='proyectos' className={styles.section}>
-			<div className={styles.header}>
-				<h2>Proyectos</h2>
-				<div className={styles.line} />
-			</div>
+		<section className={styles.section} id="proyectos" aria-labelledby="proyectos-titulo">
+			<h2 className={`section-title ${styles.heading}`} id="proyectos-titulo" data-reveal>Proyectos</h2>
 			<div className={styles.grid}>
-				{projects.map((project) => (
-					<a
-						key={project.title}
-						href={project.url}
-						target='_blank'
-						rel='noopener noreferrer'
-						className={styles.card}>
-						<div className={styles.imageWrap}>
+				{projects.map(project => (
+					<article className={project.caseUrl ? styles.feature : styles.secondary} key={project.id} data-surface>
+						<div className={styles.copy}>
+							<h3>{project.title}</h3>
+							<p>{project.summary}</p>
+							<div className={styles.links}>
+								{project.caseUrl && <Link href={project.caseUrl}>Leer el caso</Link>}
+								{project.demoUrl && <a href={project.demoUrl}>Probar DTF Sheet <span aria-hidden="true">↗</span></a>}
+								{project.repositoryUrl && <a href={project.repositoryUrl}>Ver código en GitHub <span aria-hidden="true">↗</span></a>}
+							</div>
+						</div>
+						{project.image && <figure className={styles.preview} data-reveal>
 							<Image
-								src={project.image}
-								alt={project.title}
-								fill
-								style={{ objectFit: 'cover' }}
-								sizes='(max-width: 768px) 100vw, 33vw'
+								src={project.image.src}
+								alt={project.image.alt}
+								width={project.image.width}
+								height={project.image.height}
+								loading={project.caseUrl ? 'eager' : 'lazy'}
+								sizes={project.caseUrl
+									? '(min-width: 1410px) 846px, (min-width: 1024px) 60vw, 91vw'
+									: '(min-width: 1410px) 410px, (min-width: 1024px) 29vw, 91vw'}
 							/>
-							<div className={styles.overlay}>
-								<i className='ti ti-arrow-up-right' aria-hidden='true' />
-							</div>
-						</div>
-						<div className={styles.cardBody}>
-							<h3 className={styles.cardTitle}>{project.title}</h3>
-							<p className={styles.cardDesc}>{project.description}</p>
-							<div className={styles.tags}>
-								{project.tags.map((tag) => (
-									<span key={tag} className={styles.tag}>
-										{tag}
-									</span>
-								))}
-							</div>
-						</div>
-					</a>
+						</figure>}
+					</article>
 				))}
-				<div className={styles.placeholder}>Próximamente</div>
-				<div className={styles.placeholder}>Próximamente</div>
 			</div>
 		</section>
 	);
