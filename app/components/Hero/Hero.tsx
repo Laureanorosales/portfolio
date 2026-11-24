@@ -1,50 +1,19 @@
+import Link from 'next/link';
+import { dtfSheet } from '../../projects';
+import { cvUrl } from '../../cv';
 import styles from './Hero.module.css';
 
-export default function Hero() {
-	return (
-		<section className={styles.hero}>
-			<div className={styles.text}>
-				<h1>
-					Laureano
-					<br />
-					<em>Rosales</em>
-				</h1>
-				<p>
-					Frontend developer en formación. Construyo interfaces limpias, funcionales y pensadas en las
-					personas.
-				</p>
-				<div className={styles.actions}>
-					<a href='#proyectos' className={styles.btnPrimary}>
-						Ver proyectos
-					</a>
-					<a href='#contacto' className={styles.btnOutline}>
-						Contacto
-					</a>
-				</div>
-			</div>
-
-			<div className={styles.card}>
-				<div className={styles.label}>Stack actual</div>
-				<div className={styles.stack}>
-					{[
-						{ name: 'JavaScript', level: 75 },
-						{ name: 'React', level: 60 },
-						{ name: 'Next.js', level: 45 },
-						{ name: 'CSS', level: 80 },
-					].map((tech) => (
-						<div key={tech.name} className={styles.stackItem}>
-							<span>{tech.name}</span>
-							<div className={styles.barWrap}>
-								<div className={styles.bar} style={{ width: `${tech.level}%` }} />
-							</div>
-						</div>
-					))}
-				</div>
-				<div className={styles.badge}>
-					<span className={styles.dot} />
-					Disponible para trabajar
-				</div>
-			</div>
-		</section>
-	);
+export default function Hero({ hasCv }: { hasCv: boolean }) {
+ return <section className={styles.hero} aria-labelledby="nombre">
+  <div className={styles.art} aria-hidden="true"><div /><div /><div /></div>
+  <div className={styles.content}>
+   <p className={styles.availability}><span aria-hidden="true" /> Mendoza, Argentina · Disponible para oportunidades</p>
+   <h1 id="nombre" className={styles.name}><span><span>LAUREANO</span></span><span><span>ROSALES</span></span></h1>
+   <div className={styles.bottom}>
+    <p className={styles.intro}><span lang="en">Frontend Developer &amp; AI Enthusiast</span><br />Técnico Superior en Desarrollo de Software, con aprendizaje autodidacta continuo. Exploro la creatividad digital y el desarrollo asistido por IA para crear soluciones tecnológicas.</p>
+    <div className={styles.actions}><Link href={dtfSheet.caseUrl}>Explorar DTF Sheet <span aria-hidden="true">↗</span></Link><a href="https://github.com/Laureanorosales">GitHub <span aria-hidden="true">↗</span></a>{hasCv ? <a href={cvUrl} download>Descargar CV <span aria-hidden="true">↓</span></a> : <button type="button" disabled>CV aún no disponible</button>}</div>
+   </div>
+  </div>
+  <a href="#proyectos" className={styles.scroll}>Desplazá para explorar <span aria-hidden="true">↓</span></a>
+ </section>;
 }

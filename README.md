@@ -1,68 +1,30 @@
-# Laureano Rosales — Portfolio
+# Laureano Rosales · Portfolio frontend
 
-Portfolio personal de **Laureano Rosales**, frontend developer en formación. Construido con Next.js, React y CSS Modules, con tipografía y paleta de colores cuidadosamente elegidas para transmitir una estética limpia y moderna.
+Portfolio personal en español rioplatense. Presenta a Laureano como **Frontend Developer & AI Enthusiast**, Técnico Superior en Desarrollo de Software y con aprendizaje autodidacta continuo. Reúne su práctica en desarrollo frontend, creatividad digital y desarrollo asistido por IA. El caso de DTF Sheet describe el problema, el flujo del editor y su participación en el desarrollo.
 
-## 🔗 Secciones
+## Desarrollo local
 
-| Sección | Descripción |
-|---------|-------------|
-| **Hero** | Presentación con nombre, descripción, stack actual con barras de progreso y badge de disponibilidad |
-| **Proyectos** | Grilla de proyectos (próximamente) |
-| **Skills** | Tarjetas de tecnologías: JavaScript, React, Next.js, CSS |
-| **Contacto** | Links a GitHub y LinkedIn |
-| **Footer** | Firma y año |
-
-## 🛠️ Stack
-
-- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
-- **UI Library**: [React 19](https://react.dev/)
-- **Lenguaje**: TypeScript
-- **Estilos**: CSS Modules + Variables CSS personalizadas
-- **Tipografía**: DM Sans & DM Serif Display (Google Fonts)
-- **Iconos**: [Tabler Icons](https://tabler.io/icons) (webfont)
-
-## 📁 Estructura
-
-```
-app/
-├── layout.tsx              # Root layout (fuentes, metadata)
-├── page.tsx                # Página principal
-├── globals.css             # Variables CSS, reset, estilos base
-└── components/
-    ├── Navbar/             # Barra de navegación con links de anclaje
-    ├── Hero/               # Sección de presentación con stack
-    ├── Projects/           # Grilla de proyectos
-    ├── Skills/             # Tarjetas de tecnologías
-    ├── Contact/            # Links de contacto (GitHub, LinkedIn)
-    └── Footer/             # Pie de página
-```
-
-## 🎨 Design Tokens
-
-El diseño usa una paleta cálida definida como variables CSS en `globals.css`:
-
-| Variable | Valor | Uso |
-|----------|-------|-----|
-| `--bg` | `#f8f6f1` | Fondo principal |
-| `--bg-card` | `#edeae3` | Fondo de tarjetas |
-| `--accent` | `#6b7c5e` | Color de acento (verde musgo) |
-| `--text-muted` | `#666` | Texto secundario |
-| `--font-sans` | DM Sans | Cuerpo |
-| `--font-serif` | DM Serif Display | Títulos / headings |
-
-## 🚀 Correr localmente
-
-```bash
-# Instalar dependencias
-npm install
-
-# Servidor de desarrollo
+```sh
+npm ci
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+Abrí `http://localhost:3000`. La portada está en `/` y el caso de estudio en `/proyectos/dtf-sheet`.
 
-## 📬 Contacto
+```sh
+npm run lint
+npx tsc --noEmit
+npm run build
+npm start
+```
 
-- **GitHub**: [Laureanorosales](https://github.com/Laureanorosales)
-- **LinkedIn**: [Laureano Rosales](https://www.linkedin.com/in/laureano-rosales-6b3425239)
+## Contenido y recursos
+
+- El catálogo de proyectos está en `app/projects.ts`. Los destinos de la demo y del repositorio público se mantienen por separado.
+- Las capturas WebP en `public/` provienen del editor de DTF Sheet y del buscador publicado de Gifs App.
+- El CV disponible está en `public/Laureano_Rosales_CV.pdf` y se ofrece desde el hero. La ruta se centraliza en `app/cv.ts`.
+- La ubicación profesional indicada en la portada es Mendoza, Argentina.
+- El selector ofrece Sistema, Claro y Oscuro. La selección explícita se guarda en este navegador.
+- La implementación usa Next.js, React, TypeScript y CSS Modules. Las transiciones de CSS y las apariciones al entrar en pantalla respetan la preferencia de movimiento reducido.
+
+La dirección visual implementada está documentada en [DESIGN.md](DESIGN.md). El plan, el registro y el informe QA están en [PLAN.md](PLAN.md), [PROGRESS.md](PROGRESS.md) y [FINAL_QA.md](FINAL_QA.md).
