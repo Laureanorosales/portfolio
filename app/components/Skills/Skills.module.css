@@ -1,13 +1,1 @@
-.heading { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; margin-bottom: 2rem; }
-.heading p { max-width: 29ch; color: var(--muted); }
-.grid { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 1rem; }
-.grid article { min-height: 16rem; display: flex; flex-direction: column; align-items: flex-start; padding: clamp(1.3rem, 2.3vw, 2rem); border: 1px solid var(--line); border-radius: 1.25rem; background: var(--surface); }
-.grid .frontend { grid-column: span 2; background: var(--surface-raised); }
-.icon { display: grid; place-items: center; width: 2.8rem; height: 2.8rem; margin-bottom: auto; border-radius: .8rem; background: var(--accent-soft); color: var(--accent); font-size: 1.4rem; }
-.grid h3 { margin-top: 2rem; font-size: 1.35rem; letter-spacing: -.04em; }
-.grid p { margin-top: .5rem; color: var(--muted); max-width: 38ch; }
-.grid a { margin-top: 1rem; font-weight: 600; }
-.tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.3rem; }
-.tags span { border: 1px solid var(--line); border-radius: 99px; padding: .3rem .65rem; color: var(--muted); font-size: .8rem; }
-@media (max-width: 1023px) { .grid { grid-template-columns: repeat(2, minmax(0,1fr)); } .grid article:last-child { grid-column: span 2; } }
-@media (max-width: 639px) { .heading { display: block; } .heading p { margin-top: 1rem; } .grid { grid-template-columns: 1fr; } .grid .frontend, .grid article:last-child { grid-column: auto; } .grid article { min-height: 13rem; } }
+ .heading{display:grid;grid-template-columns:2fr 1fr;gap:2rem;align-items:end;margin-bottom:3.5rem}.heading p{color:var(--muted);max-width:25ch}.grid{display:grid;grid-template-columns:repeat(2,1fr);column-gap:5rem}.grid article{border-top:1px solid var(--line);padding:1.5rem 0 3.5rem}.grid h3{font-size:clamp(1.5rem,2.5vw,2.5rem);font-weight:400;letter-spacing:-.04em}.grid p{color:var(--muted);max-width:42ch;margin-top:1rem}.grid a{display:inline-block;margin-top:1rem}.tags{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;margin-top:2rem;font-size:1rem}.tags span{border-bottom:1px solid var(--line)}@media(max-width:639px){.heading,.grid{grid-template-columns:1fr}.heading{margin-bottom:3rem}.grid article{padding-bottom:2rem}}

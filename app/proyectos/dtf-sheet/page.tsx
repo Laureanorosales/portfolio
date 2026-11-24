@@ -7,6 +7,18 @@ import styles from './Case.module.css';
 export const metadata: Metadata = {
 	title: 'DTF Sheet',
 	description: 'Cómo identifiqué, definí y probé una herramienta para preparar planchas DTF mediante desarrollo asistido por IA.',
+	alternates: { canonical: '/proyectos/dtf-sheet' },
+	openGraph: {
+		type: 'article',
+		title: 'DTF Sheet | Laureano Rosales',
+		description: 'Caso de estudio: definición del problema, flujo del editor y desarrollo asistido por IA.',
+		url: '/proyectos/dtf-sheet',
+	},
+	twitter: {
+		card: 'summary',
+		title: 'DTF Sheet | Laureano Rosales',
+		description: 'Caso de estudio de una herramienta para preparar planchas DTF.',
+	},
 };
 
 const project = projects.find(entry => entry.id === dtfSheet.id);
@@ -22,6 +34,10 @@ export default function DtfSheetPage() {
 					<a className="button button-primary" href={dtfSheet.demoUrl}>Probar DTF Sheet <span aria-hidden="true">↗</span></a>
 					{project?.repositoryUrl && <a className="button" href={project.repositoryUrl}>Ver repositorio</a>}
 				</div>
+				<figure className={styles.figure} data-reveal>
+					<Image src="/dtf-editor-final.webp" width={1440} height={950} alt="Editor de DTF Sheet con biblioteca de diseños, plancha organizada en el lienzo y lista de capas." sizes="(min-width: 1024px) 55vw, 92vw" loading="eager" />
+					<figcaption>La biblioteca, el lienzo y las capas del mismo ejemplo.</figcaption>
+				</figure>
 			</header>
 
 			<section className={`section ${styles.split}`} aria-labelledby="problema">
@@ -36,10 +52,7 @@ export default function DtfSheetPage() {
 					<li><h3>Organizar en el lienzo</h3><p>La organización automática acomoda las piezas dentro del margen de la plancha.</p></li>
 					<li><h3>Exportar el resultado</h3><p>El cuadro muestra las dimensiones de salida antes de descargar la plancha como PNG.</p></li>
 				</ol>
-				<figure className={styles.figure} data-reveal>
-					<Image src="/dtf-editor-final.webp" width={1440} height={950} alt="Editor de DTF Sheet con biblioteca de diseños, plancha organizada en el lienzo y lista de capas." sizes="(min-width: 1410px) 1280px, 91vw" />
-					<figcaption>La biblioteca, el lienzo y las capas del mismo ejemplo.</figcaption>
-				</figure>
+
 				<div className={styles.details}>
 					<figure className={styles.figure} data-reveal>
 						<Image src={dtfSheet.image.src} alt={dtfSheet.image.alt} width={dtfSheet.image.width} height={dtfSheet.image.height} sizes="(min-width: 1410px) 720px, (min-width: 768px) 51vw, 91vw" />

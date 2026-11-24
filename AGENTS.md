@@ -14,3 +14,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Documenta las decisiones importantes en PROGRESS.md.
 - Solicita autorización únicamente ante operaciones destructivas, exposición de información sensible, cambios importantes de alcance, push a GitHub o despliegues a producción.
 <!-- END:nextjs-agent-rules -->
+
+## Dirección visual
+
+Antes de realizar cualquier modificación visual, lee `DESIGN.md` y conserva el sistema de diseño implementado. Cambia la presentación únicamente cuando la tarea lo solicite o cuando sea necesario corregir un problema comprobable de legibilidad, accesibilidad o adaptación responsive. No contradigas la dirección artística aprobada.

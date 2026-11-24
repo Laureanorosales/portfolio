@@ -13,8 +13,23 @@ const dmSans = localFont({
 });
 
 export const metadata: Metadata = {
-	title: { default: 'Laureano Rosales | Portfolio frontend', template: '%s | Laureano Rosales' },
-	description: 'Portfolio de Laureano Rosales, desarrollador frontend en formación. Proyectos, proceso y contacto.',
+	metadataBase: new URL('https://laureanorosalesportfolio.vercel.app'),
+	title: { default: 'Laureano Rosales | Frontend Developer & AI Enthusiast', template: '%s | Laureano Rosales' },
+	description: 'Portfolio de Laureano Rosales, Técnico Superior en Desarrollo de Software y desarrollador frontend en formación, con práctica en creatividad digital y desarrollo asistido por IA.',
+	alternates: { canonical: '/' },
+	openGraph: {
+		type: 'website',
+		locale: 'es_AR',
+		siteName: 'Laureano Rosales',
+		title: 'Laureano Rosales | Frontend Developer & AI Enthusiast',
+		description: 'Técnico Superior en Desarrollo de Software y frontend en formación, con práctica en creatividad digital y desarrollo asistido por IA.',
+		url: '/',
+	},
+	twitter: {
+		card: 'summary',
+		title: 'Laureano Rosales | Frontend Developer & AI Enthusiast',
+		description: 'Frontend en formación, creatividad digital y desarrollo asistido por inteligencia artificial.',
+	},
 };
 
 const themeBootstrap = `

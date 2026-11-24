@@ -53,3 +53,53 @@ Las cinco fases de [PLAN.md](PLAN.md) están implementadas y comprobadas sobre u
 - Añadir el CV real a `public/cv.pdf` cuando esté disponible. Confirmar el acceso al perfil de LinkedIn desde una sesión normal. Añadir el repositorio de DTF Sheet al catálogo si más adelante se confirma su acceso público.
 - Valorar un recorte alternativo para la portada que muestre más de la plancha sin retrasar la entrada de la imagen en el primer viewport.
 - Revisar el equilibrio del bloque cobalto de Gifs App frente a la captura de DTF en oscuro y el espaciado vertical del caso en escritorio.
+
+
+## Rediseño editorial monocromático ? 24 de noviembre de 2026
+
+- Se reemplazó el hero por una composición inmersiva con el nombre a gran escala, dos líneas enmascaradas y una forma abstracta de capas difuminadas animadas detrás del texto. El archivo solicitado `referencias/hero-reference.png` no estaba presente; se usó la imagen PNG disponible en la carpeta, que coincide con la referencia descrita.
+- Proyectos pasí a composiciones editoriales numeradas; DTF Sheet conserva la mayor escala, sus imágenes reales, caso y demo. El perfil usa columnas y divisores, y contacto cierra con tipografía de gran tamaño. Se conservan las dos paletas y el selector persistente.
+- Se mantuvo DM Sans local con licencia OFL, aprovechando su peso regular y ajustando escala y espaciado. Se evaluó Motion/GSAP: las secuencias de esta propuesta se resuelven con CSS y el observador existente, sin añadir dependencias. Movimiento reducido muestra el estado final.
+- La imagen de DTF Sheet ahora está fuera del primer viewport y carga diferida; el nombre es el elemento dominante inicial. Se conservaron dimensiones y tamaños responsivos de imágenes.
+- Validación sobre build de producción: lint, TypeScript y build correctos. Playwright y axe revisaron portada y caso en temas claro y oscuro a 320, 390, 768, 1024, 1440 y 1920 px, sin infracciones automáticas ni desbordamientos detectados. Se revisó la consola y se guardaron capturas finales en `build/editorial-*.png`.
+- Pendientes anteriores: incorporar el CV real, verificar LinkedIn en sesión normal y confirmar el acceso público al repositorio DTF Sheet antes de ofrecerlo.
+
+
+## Ajuste de escala y legibilidad
+
+- Se elevó el texto base a 18 px con interlineado 1,6 y se ajustaron enlaces, controles, indicadores y pies a unos 15-16 px. Se redujo la escala de titulares secundarios y el espacio entre secciones; el contenedor tiene márgenes fluidos y ancho máximo de 100 rem.
+- La introducción del caso DTF Sheet incorpora la captura real del editor, con carga inmediata y dimensiones responsivas. Se conservan las vistas de detalle y exportación.
+- Lint, TypeScript y build de producción correctos. Revisión visual al 100 % en 1920×1080, 1440×900 y 390×844; Playwright y axe revisaron ambas rutas y temas sin desbordamientos ni infracciones automáticas, y sin errores de consola detectados. Capturas en `build/scale-*.png`.
+
+
+## CV disponible
+
+- Se conectó `public/Laureano_Rosales_CV.pdf` al enlace de descarga de la portada, conservando el estado alternativo si el archivo falta. Se actualizó la documentación.
+
+## Presentación profesional
+
+- Se actualizó el hero con el título «Frontend Developer & AI Enthusiast» y una descripción que mantiene explícita la formación autodidacta. El perfil destaca la práctica con Codex, Google Antigravity, skills y flujos con múltiples modelos de IA; también se ajustaron el contacto y los metadatos de portada. Se conservan el diseño, las animaciones y el CV.
+
+
+## QA y preparación para producción
+
+- Se creó `DESIGN.md` a partir de las hojas de estilo implementadas y se actualizó `AGENTS.md` para exigir que las futuras modificaciones visuales respeten esa guía. `PLAN.md` y `README.md` ahora identifican el título de Técnico Superior en Desarrollo de Software que aparece en el CV.
+- Tras leer el PDF real sin modificarlo, se afinó la presentación: el hero identifica la formación técnica y el aprendizaje continuo; el perfil menciona Codex, Antigravity, skills y los modelos ChatGPT y Gemini. Se añadió Mendoza, Argentina, junto al indicador profesional. El CV existente se sirve en `/Laureano_Rosales_CV.pdf`; se corrigió la documentación que todavía lo ubicaba en `/cv.pdf` o lo marcaba pendiente.
+- Se completaron los metadatos canónicos y Open Graph/Twitter de portada y caso. Se añadieron `app/sitemap.ts` y `app/robots.ts`. Favicon: `app/favicon.ico`.
+- En Playwright con `next start`, las 32 combinaciones de dos rutas, dos temas y ocho resoluciones (1920×1080, 1440×900, 1366×768, 1024×768, 768×1024, 390×844, 360×800 y 320×800) pasaron sin desbordamiento, imágenes rotas, texto alternativo faltante, controles sin nombre, área táctil pequeña del tema ni jerarquía incorrecta de H1. Se guardaron capturas completas en `build/final-*.png`.
+- axe-core en producción local reportó cero infracciones WCAG 2 A/AA y 2.1 A/AA en portada/caso y ambos temas, después de completar la animación de entrada. La prueba adicional a 720 px CSS (reflujo comparable a una ventana de 1440 px con zoom al 200 %) tampoco desbordó. Se comprobó foco del salto al contenido, activación por teclado, persistencia del tema, preferencia del sistema y `prefers-reduced-motion`.
+- Navegación local, enlaces a caso y demo, enlace CV (HTTP 200 y `application/pdf`), enlaces GitHub (HTTP 200), LinkedIn (HTTP 999 del servidor anti-bots), metadatos, favicon, sitemap y robots. No se quitó ningún destino válido por la respuesta de LinkedIn.
+- Medición local orientativa en Chromium, sin limitación de red: portada LCP 52 ms y CLS 0; caso LCP 20 ms y CLS 0. DM Sans y las imágenes de ambas rutas cargaron. Consola y errores de página limpios.
+- Auditoría del destino público: la portada de Vercel responde 200, pero es una versión anterior (título «Laureano Rosales — Frontend Developer»). `/proyectos/dtf-sheet`, `/sitemap.xml` y `/robots.txt` responden 404. No se hizo push ni despliegue. La compilación local está lista; la URL pública necesita recibir esta versión por el proceso de publicación autorizado.
+- La captura actual de Gifs App representa el buscador y sus búsquedas previas sin resultados. No se sustituyó por la imagen local de procedencia no verificable: `gifsapp.io` no resuelve por DNS en este entorno. La imagen conserva texto alternativo que describe lo visible; conseguir una captura verificada con resultados queda como mejora opcional.
+- El estado de riesgos, limitaciones y archivos modificados está en `FINAL_QA.md`. No se encontraron archivos `.env`, claves, tokens o credenciales versionados; `.env*` está ignorado. `build/` está ignorado y conserva capturas de sesiones anteriores junto con las nuevas capturas finales; no se versiona.
+
+## Control de tema con iconos
+
+- Se reemplazó el selector por un botón monocromático con sol en tema oscuro y luna en tema claro. El control alterna temas, mantiene la elección manual en `localStorage`, sigue el tema del sistema antes de la primera elección y responde a cambios del sistema mientras la preferencia siga automática.
+- El botón conserva el espacio reservado durante la hidratación para evitar cambios de layout, usa iconos SVG inline, `aria-label` dinámico, `aria-pressed`, tooltip y foco visible. Las transiciones están limitadas a `prefers-reduced-motion: no-preference`; el área interactiva mide 44 × 44 px.
+- Lint, TypeScript, build, axe, `git diff --check`, alternancia/persistencia/preferencia del sistema/movimiento reducido y la matriz completa de escritorio/móvil finalizaron correctamente. El estado público desactualizado y la captura de Gifs App quedan documentados en `FINAL_QA.md`.
+
+## Publicación de la rama
+
+- Se agregó una regla de Vercel específica para `redesign/portfolio-v2` que omite previews al hacer push, respetando la restricción vigente de no desplegar. No afecta la rama `main`.

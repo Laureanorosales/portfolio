@@ -32,7 +32,7 @@ export const projects: readonly Project[] = [
 			src: '/gifs-buscador.webp',
 			width: 560,
 			height: 220,
-			alt: 'Pantalla inicial de Gifs App con el campo de búsqueda y el historial.',
+			alt: 'Pantalla de Gifs App con el campo de búsqueda y el encabezado de búsquedas previas.',
 		},
 		repositoryUrl: 'https://github.com/Laureanorosales/03-gifs-app',
 	},
