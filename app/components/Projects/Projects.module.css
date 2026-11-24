@@ -30,6 +30,90 @@
 	gap: 1.5rem;
 }
 
+/* ── Real project card ── */
+.card {
+	display: flex;
+	flex-direction: column;
+	background: var(--bg-card);
+	transition: background 0.2s;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.card:hover {
+	background: var(--bg-card-hover);
+}
+
+.imageWrap {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16 / 10;
+	overflow: hidden;
+}
+
+.overlay {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0);
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	padding: 0.75rem;
+	transition: background 0.25s;
+}
+
+.overlay i {
+	font-size: 1.3rem;
+	color: #fff;
+	opacity: 0;
+	transform: translate(4px, -4px);
+	transition: opacity 0.25s, transform 0.25s;
+}
+
+.card:hover .overlay {
+	background: rgba(0, 0, 0, 0.25);
+}
+
+.card:hover .overlay i {
+	opacity: 1;
+	transform: translate(0, 0);
+}
+
+.cardBody {
+	padding: 1.25rem;
+}
+
+.cardTitle {
+	font-family: var(--font-serif);
+	font-size: 1.15rem;
+	font-weight: 400;
+	margin-bottom: 0.5rem;
+}
+
+.cardDesc {
+	font-size: 0.82rem;
+	color: var(--text-muted);
+	line-height: 1.6;
+	font-weight: 300;
+	margin-bottom: 1rem;
+}
+
+.tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}
+
+.tag {
+	font-size: 0.7rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	padding: 0.2rem 0.55rem;
+	background: var(--bg-card-hover);
+	color: var(--text-muted);
+}
+
+/* ── Placeholder card ── */
 .placeholder {
 	border: 0.5px dashed var(--border-light);
 	min-height: 260px;
