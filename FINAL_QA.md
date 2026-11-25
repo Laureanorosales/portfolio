@@ -1,3 +1,39 @@
+## QA final de Portfolio V4 · 24 de noviembre de 2026
+
+**Resultado:** verificaciones enfocadas correctas para el build local de V4. No se cambió código de la escena durante esta revisión. No se hicieron commits, push ni despliegues.
+
+| Área | Resultado |
+| --- | --- |
+| Partículas y densidad adaptativa | La escena Canvas dibujó en escritorio y móvil emulado. La implementación conserva niveles adaptativos (3.400/2.500/1.650 en escritorio y 1.350/1.000/800 en móvil), selección por coste/cadencia y DPR limitado. La reducción sintética 1.350 → 1.000 → 800 ya se había observado en la prueba registrada durante la implementación de V4; en esta revisión se comprobó el código y no se volvió a forzar ese escenario. |
+| Suspensión por viewport | El contador de cuadros no avanzó al desplazar el hero fuera de pantalla y volvió a avanzar al regresar. |
+| Pestaña inactiva | Se simuló visibilitychange con document.hidden: el contador quedó detenido (43 → 43) y reanudó al volver a estado visible (68). Es una prueba controlada del evento, no una medición al cambiar de pestaña en el sistema operativo. |
+| Fallback estático | Al forzar getContext() a devolver null, el WebP móvil apareció como fondo y el H1 permaneció disponible. |
+| Movimiento reducido | Con prefers-reduced-motion: reduce, Canvas quedó oculto, no apareció el atributo de escena activa y el nombre se mantuvo visible. |
+| Temas | Capturas e inspección visual en escritorio (1440 px) y móvil emulado (390 px), claro y oscuro. El control también alternó a oscuro y actualizó aria-pressed. |
+| Scroll, parallax y proyectos | La escena suspendió/reanudó con el scroll; Chrome admite `animation-timeline: view()`. Los dos indicadores «Ver proyecto» apuntan al caso DTF Sheet y al repositorio de Gifs App. |
+| Responsive | Sin desbordamiento horizontal a 1440 px ni a 390 px. Las cuatro capturas están en build/final-v4-{desktop,mobile}-{light,dark}.png. |
+
+### Muestra de hilo principal
+
+Medición única en Chrome local sobre el build de producción, ventana de 2,3 s después de iniciar la órbita. La cadencia cuenta cuadros dibujados en Canvas; el tiempo de tareas procede de CDP Performance.TaskDuration.
+
+| Perfil medido | Cadencia | Tiempo de tareas de hilo principal |
+| --- | ---: | ---: |
+| Escritorio local, CPU sin limitación | 60,0 FPS | 827 ms / 2,32 s |
+| Pixel 7 emulado, CPU 4× más lenta | 30,2 FPS | 1.005 ms / 2,32 s |
+
+El perfil móvil es emulación por software y **no representa un teléfono físico**. No se midió ningún dispositivo móvil físico. Esta muestra única tampoco permite concluir una mediana ni comparar estadísticamente con las cinco muestras anteriores. La cadencia cumple el objetivo inicial de 60 FPS en escritorio y queda apenas por encima del mínimo de 30 FPS móvil del plan. El trabajo de dibujo consume una parte apreciable del hilo principal bajo CPU 4×; no se aplicó una reducción adicional de calidad ni se encontró una optimización segura y sencilla con beneficio medido que conserve la apariencia.
+
+### Verificaciones finales
+
+- npm run lint: correcto.
+- npx tsc --noEmit --incremental false: correcto.
+- npm run build: correcto en una copia aislada; la portada y las rutas prerenderizadas terminaron sin errores. El directorio .next de trabajo estaba bloqueado por un next dev preexistente que se dejó activo. La copia generó una advertencia inocua de detección de raíz por ver el package-lock del proyecto padre; la compilación terminó con código 0.
+- git diff --check: correcto (puede señalar finales de línea CRLF ya presentes en archivos Windows).
+- No se dejaron servidores iniciados por esta revisión en ejecución. Las pruebas del navegador y el proceso de QA finalizaron.
+
+La cobertura es intencionalmente focalizada en V4 y no sustituye mediciones térmicas, de batería o de fluidez en móviles físicos.
+
 # Informe de QA final
 
 **Fecha:** 24 de noviembre de 2026  

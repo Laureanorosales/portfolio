@@ -1,0 +1,62 @@
+.orbit {
+	position: absolute;
+	z-index: -1;
+	top: -10%;
+	right: 1%;
+	width: min(49%, 36rem, 62svh);
+	aspect-ratio: 1;
+	opacity: .55;
+	filter: invert(.94);
+	pointer-events: none;
+}
+
+:global(:root[data-theme='dark']) .orbit { filter: invert(.04); }
+
+@media (prefers-color-scheme: dark) {
+	:global(:root:not([data-theme])) .orbit { filter: invert(.04); }
+}
+
+.orbit::before,
+.canvas {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.orbit::before {
+	content: '';
+	background: url('/hero-orbit.webp') center / contain no-repeat;
+}
+
+.canvas { visibility: hidden; }
+.orbit[data-orbit-ready]::before { opacity: 0; }
+.orbit[data-orbit-ready] .canvas { visibility: visible; }
+
+@media (max-width: 767px) {
+	.orbit {
+		top: 50%;
+		right: -12%;
+		width: min(72vw, 20rem);
+		height: auto;
+		transform: translateY(-50%);
+		opacity: .42;
+	}
+	.orbit::before { background-image: url('/hero-orbit-mobile.webp'); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.orbit { transition: filter 180ms; }
+	.orbit[data-orbit-ready] .canvas { animation: orbit-in 650ms ease-in-out; }
+	.orbit::before { transition: opacity 650ms ease-in-out; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.orbit[data-orbit-ready]::before { opacity: 1; }
+	.orbit[data-orbit-ready] .canvas { visibility: hidden; }
+}
+
+@keyframes orbit-in {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}

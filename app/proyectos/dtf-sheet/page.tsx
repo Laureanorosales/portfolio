@@ -1,3 +1,4 @@
+import Link from 'next/link';
 /* eslint-disable @next/next/no-html-link-for-pages -- The browser resolves section fragments directly across pages. */
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -27,7 +28,7 @@ export default function DtfSheetPage() {
 	return (
 		<article className={`container ${styles.article}`}>
 			<header className={styles.intro}>
-				<a href="/#proyectos">Volver a Proyectos</a>
+				<Link href="/#proyectos">Volver a Proyectos</Link>
 				<h1>DTF Sheet</h1>
 				<p>Una herramienta web para preparar planchas de impresión textil mediante desarrollo asistido por IA.</p>
 				<div className="actions">
@@ -76,7 +77,7 @@ export default function DtfSheetPage() {
 			</section>
 
 			<nav aria-label="Continuar desde el caso" className={`section ${styles.continue}`}>
-				<a href="/#proyectos">Ver proyectos</a>
+				<Link href="/#proyectos">Ver proyectos</Link>
 				<a className="button button-primary" href="/#contacto">Contacto</a>
 			</nav>
 		</article>

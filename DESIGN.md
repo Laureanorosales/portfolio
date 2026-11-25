@@ -5,7 +5,7 @@ Esta documentación describe los estilos que existen en el portfolio. Si el cód
 ## Dirección y principios
 
 - Diseño editorial monocromático, sobrio y de alto contraste, con DM Sans variable local.
-- El nombre monumental ocupa el centro del hero; una forma abstracta en escala de grises se mueve detrás del texto.
+- El nombre monumental ocupa el centro del hero. Órbita editorial, una esfera irregular de partículas en escala de grises, ocupa el espacio a su derecha.
 - Jerarquía asimétrica, números de proyecto, líneas finas y espacio negativo organizan las secciones.
 - DTF Sheet usa la composición de mayor escala; Gifs App aparece como proyecto secundario.
 - Perfil, contacto y caso de estudio se presentan con tipografía, texto y columnas, sin indicadores de nivel.
@@ -13,7 +13,7 @@ Esta documentación describe los estilos que existen en el portfolio. Si el cód
 
 ## Color
 
-Los colores están declarados como variables CSS en `app/globals.css`. La forma artística del hero usa además una mezcla de grises fija.
+Los colores están declarados como variables CSS en `app/globals.css`. La órbita comparte un dibujo monocromático transparente para los dos temas. CSS lo tiñe de gris claro sobre oscuro y de gris oscuro sobre claro.
 
 | Variable | Claro | Oscuro |
 | --- | --- | --- |
@@ -57,8 +57,8 @@ Los titulares usan peso regular y tracking negativo. El cuerpo utiliza peso regu
 
 ## Retícula y composición
 
-- El hero ocupa al menos `calc(100svh - 5rem)` en escritorio y `calc(100svh - 7rem)` en móvil.
-- El hero alinea nombre, presentación y enlaces; el arte abstracto se posiciona detrás y no captura interacción.
+- El hero ocupa al menos `calc(100svh - 5rem)` en escritorio; en móvil su altura mínima usa `min(calc(100svh - 7rem), 36rem)` y crece cuando el contenido lo necesita.
+- El hero alinea nombre, presentación y enlaces. La órbita es decorativa y queda detrás del contenido, sin capturar clics ni gestos. Debajo de 768 px su tamaño queda ligado al bloque del nombre para despejar disponibilidad y presentación.
 - El perfil usa dos columnas y una separación horizontal de 5 rem; pasa a una columna debajo de 640 px.
 - El proyecto principal usa columnas 1:2; Gifs App usa dos columnas y un ancho máximo del 75 %. Ambos pasan a una columna debajo de 768 px.
 - El caso muestra la captura principal en una retícula de dos columnas desde 1024 px. El texto conserva más espacio que la imagen en la introducción.
@@ -86,9 +86,13 @@ Los titulares usan peso regular y tracking negativo. El cuerpo utiliza peso regu
 
 - El nombre entra por máscara y sus dos líneas se escalonan por 140 ms.
 - Disponibilidad y bloque inferior aparecen con una entrada suave.
-- La forma abstracta deriva lentamente durante 12 s; el indicador de scroll rebota cada 2 s.
-- Los elementos marcados `data-reveal` reciben una entrada breve al entrar en el viewport mediante `IntersectionObserver`.
-- Las imágenes de proyectos amplían a escala 1.025 al pasar el puntero y se revelan al aparecer.
+- La órbita gira una vez cada 54 s con el perfil de escritorio y más despacio en el móvil. Las ondas pliegan las bandas y la profundidad cambia el tamaño y la opacidad de los puntos.
+- Con puntero fino, la órbita se inclina hasta 5° por eje y el scroll la desplaza hasta un 7 % de su caja y reduce su opacidad hasta un 13 %. En táctil se conserva el movimiento autónomo. La tinta cambia en 180 ms y el lienzo entra en 650 ms.
+- El indicador de scroll mantiene su rebote de 2 s.
+- Los títulos de portada se revelan por máscara y los textos de proyectos, perfil y contacto entran con desplazamientos breves y escalonados mediante el observador existente. El contenido está disponible antes de que el observador actúe.
+- Las líneas superiores de proyectos se dibujan al entrar. Las capturas se revelan y, donde el navegador admite animaciones vinculadas al viewport, tienen un desplazamiento vertical leve con escala de 1,06.
+- Las imágenes de proyectos son enlaces con indicador «Ver proyecto», visible al pasar el puntero o al recibir foco y permanente en dispositivos táctiles. El destino de DTF Sheet es su caso y el de Gifs App es su repositorio.
+- La órbita tiene mayor contraste y menor amplitud de deformación radial. La imagen estática y el primer cuadro comparten geometría, densidad y pose, con un fundido de 650 ms.
 - Los iconos de sol/luna cambian con opacidad y rotación suave dentro de la preferencia de movimiento normal.
 - Los controles y enlaces tienen transiciones de 140–180 ms.
 - Las animaciones CSS se limitan a `prefers-reduced-motion: no-preference`; el contenido sigue disponible cuando la preferencia reduce movimiento.
@@ -98,6 +102,7 @@ Los titulares usan peso regular y tracking negativo. El cuerpo utiliza peso regu
 - Las capturas se sirven desde `public/` en WebP y usan `next/image` con dimensiones intrínsecas, texto alternativo descriptivo y `sizes`.
 - La captura inicial del caso carga eager. Las vistas de la sección de proyectos se cargan de forma diferida.
 - Las imágenes conservan proporción, ocupan el ancho de su figura y no usan esquinas redondeadas.
+- El hero muestra primero una imagen estática WebP generada con la misma geometría del lienzo. CSS selecciona la variante de escritorio o móvil y aplica la tinta del tema. La imagen permanece visible con movimiento reducido y ante fallos de carga o de Canvas.
 
 ## Accesibilidad
 
@@ -105,7 +110,7 @@ Los titulares usan peso regular y tracking negativo. El cuerpo utiliza peso regu
 - Las secciones y rutas identifican sus títulos con `aria-labelledby`; los elementos decorativos se ocultan al lector de pantalla.
 - Los enlaces tienen texto de destino; los símbolos redundantes usan `aria-hidden`.
 - El botón de tema tiene etiqueta accesible dinámica y estado anunciado; los controles conservan foco visible y alturas táctiles adecuadas.
-- Las imágenes de contenido tienen texto alternativo y el elemento abstracto del hero no se anuncia.
+- Las imágenes de contenido tienen texto alternativo. La órbita se oculta a tecnologías de asistencia.
 - El tema claro/oscuro y las preferencias de movimiento se exponen mediante CSS y preferencias del sistema.
 - El botón de tema comunica su estado con `aria-pressed`; su nombre anuncia el tema que activará y las transiciones de los iconos se desactivan con `prefers-reduced-motion`.
 
@@ -114,3 +119,32 @@ Los titulares usan peso regular y tracking negativo. El cuerpo utiliza peso regu
 Permitidos: fondos neutrales, texto de alto contraste, espacio negativo, divisores finos, composiciones descentradas, numeración editorial, capturas reales de los proyectos y animación breve que aporte jerarquía.
 
 Evitar: paletas de acento saturadas, gradientes decorativos, tarjetas repetitivas con esquinas redondeadas, interfaces tipo dashboard, barras de progreso, datos de experiencia no confirmados, fotografías de personas inventadas y movimiento que oculte contenido o interfiera con lectura y controles.
+
+## Motion creativo incremental
+
+- Una marca LR decorativa aparece y desaparece por máscara en el hero, sin bloquear interacción ni ocultar el contenido. Las líneas del nombre, la disponibilidad y la presentación conservan sus entradas escalonadas; la órbita mantiene su carga y suspensión existentes.
+- Las imágenes de proyectos reciben perspectiva y tilt limitado a 7° con puntero fino. El indicador conserva su funcionamiento por foco y en táctil. Los enlaces de contacto responden con desplazamiento magnético máximo de 4 px; se restauran al salir o cambiar preferencias.
+- El titular de contacto revela sus dos líneas con ritmos diferenciados. Se conservan las entradas, líneas y parallax progresivo de las secciones. Con movimiento reducido o sin JavaScript el contenido permanece disponible.
+- CSS declara una transición editorial entre documentos donde el navegador admite View Transitions; la navegación cliente de Next no queda cubierta por esta mejora y conserva su comportamiento normal. No se fuerza ni retrasa la navegación.
+
+## Transición entre portada y caso
+
+- Al cambiar entre la portada y DTF Sheet mediante navegación cliente, una cortina de tinta y papel se desplaza verticalmente durante 700 ms. Presenta «01 / DTF SHEET» al entrar y «LR.» al regresar. El cambio de ruta no espera a la animación; la capa es decorativa, no captura eventos y se retira también mediante un límite de seguridad de 900 ms.
+- La cortina se omite con movimiento reducido y en la carga directa de una página. Los enlaces mantienen destinos y fragmentos; el historial y el botón Atrás conservan su comportamiento nativo.
+
+## Scramble y perspectiva interactiva
+
+- Los enlaces de navegación y contacto revelan su texto en 560 ms al pasar un puntero fino; la presentación profesional y los números de proyecto lo hacen al entrar en pantalla. El texto original mantiene el espacio y la semántica; una capa decorativa oculta a lectores de pantalla muestra los caracteres temporales. Se ejecuta una animación de texto a la vez y se respeta movimiento reducido.
+- La perspectiva de las imágenes conserva 1200 px, con rotación hasta 7° por eje y escala máxima de 1,01. El indicador de proyecto avanza 22 px en profundidad; la interpolación CSS y el retorno duran 420 ms. El efecto de puntero se desactiva en táctil y con movimiento reducido. No se añadió iluminación para proteger la lectura de las capturas.
+
+## Luz ambiental, morphing y tinta editorial
+
+- Una sola luz radial fija al viewport acompaña al puntero por toda la página con interpolación CSS de 180 ms. Su capa mide 400 px; usa gris oscuro al 11 % con opacidad de capa del 95 % en claro y blanco al 5,5 % con opacidad del 100 % en oscuro. Color, intensidad y opacidad se controlan mediante variables CSS por tema y se actualizan al cambiarlo. Solo aparece con puntero fino y movimiento normal, es decorativa y no intercepta eventos.
+- La órbita conserva la esfera inicial y evoluciona lentamente hacia un toroide y una hélice abstracta antes de regresar. Las posiciones de destino se precalculan; se reutilizan la densidad adaptativa, el loop, la suspensión y el fallback existentes.
+- Los títulos de proyectos y perfil reciben un relleno progresivo de tinta con scroll timelines CSS cuando están disponibles. El tono inicial mantiene alta legibilidad; sin soporte o con movimiento reducido se muestra tinta completa.
+
+
+## Composición móvil del hero
+
+- Hasta 767 px el contenido comienza cerca de la navegación y la altura se limita de forma fluida para acercar proyectos. La órbita mide hasta 72 vw (máximo 20 rem), se desplaza hacia la derecha y se superpone parcialmente detrás del nombre; mantiene la tinta, animación y fallback existentes.
+- En la navegación móvil los tres destinos permanecen visibles y distribuidos en una segunda fila. Se evaluó un menú hamburguesa: no se adoptó porque ocultaría tres enlaces que ya caben y requieren acceso directo. Las acciones del hero y la indicación de scroll ofrecen 44 px de altura mínima.

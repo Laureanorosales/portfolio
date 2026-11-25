@@ -3,6 +3,9 @@ import localFont from 'next/font/local';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Reveal from './components/Reveal';
+import RouteCurtain from './components/RouteCurtain';
+import MotionInteractions from './components/MotionInteractions';
+import ScrambleMotion from './components/ScrambleMotion';
 import { themeStorageKey } from './theme';
 import './globals.css';
 
@@ -50,7 +53,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 				<Navbar />
 				<main id="contenido" tabIndex={-1}>{children}</main>
 				<Footer />
+				<div className="global-spotlight" aria-hidden="true" />
 				<Reveal />
+				<MotionInteractions />
+				<ScrambleMotion />
+				<RouteCurtain />
 			</body>
 		</html>
 	);

@@ -103,3 +103,88 @@ Las cinco fases de [PLAN.md](PLAN.md) están implementadas y comprobadas sobre u
 ## Publicación de la rama
 
 - Se agregó una regla de Vercel específica para `redesign/portfolio-v2` que omite previews al hacer push, respetando la restricción vigente de no desplegar. No afecta la rama `main`.
+
+## Portfolio V4 · Órbita editorial
+
+- El hero incorpora una esfera irregular de partículas mediante Canvas 2D, CSS y `requestAnimationFrame`. Las bandas de la superficie se pliegan con dos ondas y se proyectan en perspectiva. Ocho variantes precalculadas modulan tamaño y opacidad por profundidad. La primera línea del nombre y los pliegues de la figura comparten el espacio derecho en escritorio. En móvil la caja queda anclada al nombre para despejar disponibilidad, presentación y enlaces.
+- El contenido del hero se sigue prerenderizando. El módulo de dibujo se importa cuando el hero está visible, la pestaña está activa y la preferencia permite movimiento. Se precarga solo la imagen WebP correspondiente al ancho, con la geometría de la escena y la tinta CSS del tema. El lienzo se muestra tras el primer cuadro válido y vuelve a la imagen estática si pierde el contexto o se detecta un fallo de dibujo.
+- En escritorio los niveles apuntan a 3.400, 2.500 o 1.650 partículas y limitan DPR a 1,5, 1,25 o 1. En móvil apuntan a 1.350, 1.000 o 800, con DPR de 1, 1 o 0,85. El ajuste usa ventanas de tiempo de dibujo y cadencia, sin depender del navegador declarado. Se pausa fuera del viewport, con la pestaña oculta y con movimiento reducido. El puntero fino controla suavemente la inclinación y el scroll atenúa y desplaza la figura. El gesto táctil conserva la navegación nativa.
+- Playwright en Chrome sobre el build local verificó ambos temas a 1440 y 390 px, y desbordamiento adicional a 320, 768 y 1920 px. Comprobó rotación, respuesta al puntero con cuadros equivalentes, scroll, toque en el acceso a proyectos, cambio de tema por teclado, destino del CV y suspensión y reanudación. Se comprobó el estado estático con JavaScript desactivado, importación bloqueada, contexto no disponible o perdido y preferencia de movimiento reducido inicial y en vivo. Axe no detectó infracciones en el hero de las cuatro combinaciones principales.
+- Capturas en `build/immersive-hero-{light,dark}-{1440,390}.png` y `build/immersive-hero-fallback-390.png`.
+- Lint, TypeScript, build de producción y `git diff --check` correctos. El build prerenderizó la portada y el caso. La prueba de carga sintética en móvil observó los tres niveles de densidad, 1.350 → 1.000 → 800.
+- Rendimiento local en Chrome con AMD Ryzen 5 7600. Cinco navegaciones con caché fría por variante y perfil. Escritorio con red de 10 Mb/s y 40 ms. Móvil emulado con CPU 4× más lenta y red de 3 Mb/s y 90 ms. Se comparó el build anterior con el nuevo.
+
+| Mediana | Escritorio | Móvil emulado |
+| --- | ---: | ---: |
+| LCP anterior → nuevo | 208 → 224 ms | 512 → 560 ms |
+| CLS anterior → nuevo | 0 → 0 | 0 → 0 |
+| Cadencia de dibujo | 59,9 FPS | 30,2 FPS |
+| Datos transferidos de la portada | 244.827 → 277.926 B | 244.827 → 264.524 B |
+| Tiempo de tareas del hilo principal durante 2,3 s en reposo | 6 → 712 ms | 24 → 896 ms |
+
+- Chrome seleccionó la imagen visible de la órbita como LCP. La precarga por ancho y la compresión de las dos imágenes dejaron la diferencia dentro de +200 ms. La ventana medida de 2,3 s no registró tareas largas en la mediana de ningún perfil. Datos en `build/immersive-hero-performance.json`. Queda por medir la temperatura, el consumo y la cadencia en un móvil físico de gama media.
+- Para la siguiente fase artística, revisar la definición de los puntos en pantallas móviles de alta densidad, el balance de intensidad entre ambas paletas y la silueta durante una vuelta completa, especialmente cuando los pliegues se acercan a los bordes. Comparar la pose estática y la primera animada para afinar la transición.
+
+## Refinamiento de órbita y motion de portada
+
+- Se aumentó moderadamente la opacidad y el contraste de profundidad. La deformación radial es menor y el eje vertical más redondo, conservando bandas y pliegues. Las imágenes estáticas se regeneraron con la misma geometría, cantidad y pose inicial del lienzo, y ambos estados usan un fundido de 650 ms.
+- Se evaluó la repulsión localizada. Se conservó la inclinación existente para evitar cálculo adicional por partícula y mantener la silueta estable. Los niveles de calidad, suspensión y preferencia de movimiento reducido siguen activos.
+- Proyectos, perfil y contacto incorporan máscaras, entradas breves y escalonadas y una línea animada en proyectos. Las imágenes enlazan al caso o repositorio, con indicador accesible por teclado y visible en táctil. El parallax se aplica progresivamente mediante CSS donde se admite `animation-timeline: view()`. El contenido permanece disponible sin JavaScript y con movimiento reducido.
+- Se evaluaron GSAP y ScrollTrigger. Las entradas se resuelven con el observador existente y CSS, y el parallax tiene mejora progresiva, por lo que no se añadieron dependencias.
+- Lint, TypeScript y build correctos. Playwright revisó los cuatro pares de tema y tamaño 1440/390, enlaces de imagen, desbordamiento, errores de página y movimiento reducido. Se revisaron las capturas `build/motion-*.png` y la disponibilidad del contenido sin JavaScript.
+- Medición puntual en Chrome local con Ryzen 5 7600 durante 2,3 s. Escritorio: 60 FPS y 924 ms de tareas de hilo principal. Móvil emulado con CPU 4× más lenta: 30 FPS y 1.099 ms. Es una sola muestra y no permite concluir una comparación estadística con las medianas anteriores. El coste sigue siendo relevante y queda pendiente medirlo en móvil físico.
+
+
+## QA final V4 · 24 de noviembre de 2026
+
+- Revisión enfocada de partículas, suspensión por viewport y pestaña, densidad adaptativa, fallback, movimiento reducido, scroll/parallax, temas, enlaces de proyecto y móvil. No hubo cambios en la arquitectura ni en los estilos durante esta auditoría.
+- En cuatro combinaciones de escritorio/móvil emulado y claro/oscuro: lienzo activo, pausa fuera del hero, reanudación al volver, enlaces correctos y sin overflow (1440/390 px). El fallback WebP móvil se mantuvo al simular fallo de Canvas; con movimiento reducido, el H1 quedó disponible y el loop no inició. Se simuló visibilitychange; no se presenta como prueba de cambio real de pestaña.
+- Capturas actuales en `build/final-v4-desktop-light.png`, `build/final-v4-desktop-dark.png`, `build/final-v4-mobile-light.png` y `build/final-v4-mobile-dark.png`.
+- Muestra única Chrome/CDP de 2,3 s: 60,0 FPS y 827 ms de tareas en escritorio local sin limitación; 30,2 FPS y 1.005 ms con Pixel 7 emulado y CPU 4×. No se midió teléfono físico. El tiempo de tareas confirma consumo significativo bajo CPU restringida; no se aplicó un recorte que afectara la apariencia y no se encontró una optimización sencilla con mejora cuantificable.
+- Lint, TypeScript, build y git diff --check correctos. Ver detalles, límites y entorno en `FINAL_QA.md`.
+
+## Evolución motion creativa
+
+- Intro LR decorativa por máscara, entradas existentes del hero, tilt de proyecto con perspectiva, enlaces magnéticos de contacto y revelado escalonado del titular. Se mantienen parallax CSS, observador existente y la órbita Canvas. Las interacciones de puntero se restringen a puntero fino y movimiento normal; listeners se limpian al desmontar o cambiar ruta.
+- GSAP y ScrollTrigger evaluados: los efectos implementados se resuelven mediante CSS y el observador existente, sin nueva dependencia ni bucle continuo adicional. La transición CSS entre documentos usa View Transitions como mejora progresiva; la navegación cliente de Next conserva la transición normal, sin prometer una animación entre rutas cliente.
+- Lint, TypeScript y build correctos. Playwright en Chrome revisó 1440 y 390 px con ambos temas: sin overflow, tilt activo en escritorio y contenido visible sin JavaScript con movimiento reducido. Capturas del hero en `build/creative-*.png`. No se midió consumo ni se probó un dispositivo móvil físico durante esta fase.
+
+## Transición editorial entre portada y DTF Sheet
+
+- Se añadió una cortina de 700 ms, con «01 / DTF SHEET» al entrar y «LR.» al volver, detectando cambios de ruta con `usePathname`. No retrasa ni intercepta navegación, no captura eventos y tiene limpieza al terminar o por timeout. Respeta movimiento reducido y no aparece en carga directa.
+- Se evaluó la documentación local de Next 16: la integración de React ViewTransition sigue siendo experimental. Se eligieron `Link` y `usePathname`, APIs del App Router, sin dependencias ni flag experimental. Los enlaces de la imagen DTF y de retorno al listado usan navegación cliente y conservan `/#proyectos`.
+- Pruebas enfocadas en Chrome sobre build de producción: activación con Enter, imagen de proyecto, regreso mediante historial, enlace de regreso con fragmento, entrada directa y movimiento reducido. Los textos y estados de la cortina fueron correctos; lint, TypeScript y build pasaron. No se realizó auditoría general.
+
+## Scramble tipográfico y perspectiva de proyectos
+
+- Se incorporó un texto reutilizable con capa visual `aria-hidden`, revelado progresivo de 560 ms, ancho reservado por el texto original y una sola animación activa. Se aplica a navegación, numeración, presentación profesional y contacto. Los observers, eventos y cuadros pendientes se limpian; el contenido permanece disponible sin JavaScript y con movimiento reducido.
+- Se ajustó la implementación existente de tilt a 7° por eje, perspectiva de 1200 px, escala de 1,01 y retorno suave, conservando la capa de profundidad del indicador. No se agregó un segundo loop de perspectiva ni iluminación que altere las capturas.
+- Playwright en Chrome sobre producción: escritorio y móvil emulado a 1440/390 en ambos temas, sin overflow ni errores de página; scramble y tilt activos en escritorio, retorno de tilt, selección del texto original, navegación por teclado y clic de proyecto. Movimiento reducido no inició scramble. Capturas en `build/scramble-*.png`; no se midió en móvil físico.
+- Lint, TypeScript y build correctos. No se añadieron dependencias.
+
+## Spotlight, morphing y relleno editorial
+
+- Luz radial sutil en el hero mediante el controlador de interacciones existente, sin capturar eventos y desactivada en táctil y movimiento reducido. Dos títulos usan scroll timelines CSS como mejora progresiva; el texto permanece semántico y visible sin soporte.
+- La órbita interpola entre esfera, toroide y hélice con coordenadas precalculadas, sin aumentar la cantidad de partículas ni incorporar otro loop. Se conservan los niveles adaptativos, pausa y fallback originales.
+- Playwright con Chrome en build de producción: escritorio 1440 px y Pixel 7 emulado 390 px, ambos temas, sin overflow ni errores de página; spotlight activo solo en escritorio, Canvas activo y movimiento reducido con fallback estático y tinta completa. Se inspeccionaron capturas de las tres formas y de los títulos. Capturas en `build/effects-*.png` y `build/fill-*.png`. No se probó un móvil físico ni se realizó una medición comparativa de rendimiento.
+- Lint, TypeScript y build correctos. No se incorporaron dependencias.
+
+
+## Refinamiento visual móvil
+
+- Se acercó el contenido a la navegación, se aumentó y desplazó la órbita detrás del nombre y se limitó la altura mínima del hero para adelantar proyectos en pantallas altas. Los enlaces disponen de 44 px de altura táctil. Se mantuvieron visibles los tres enlaces de navegación en vez de ocultarlos tras una hamburguesa. Los cambios están restringidos a los breakpoints móviles; la escena Canvas no cambió.
+- Playwright en Chrome sobre build de producción, con móvil emulado de 320, 360, 390 y 430 px en ambos temas: sin desbordamiento ni errores de página; órbita activa y enlace a proyectos funcional por toque. Se verificó también el fallback con movimiento reducido. Capturas en `build/mobile-refine-*.png`. No se probó en dispositivos físicos.
+- Lint, TypeScript y build correctos. No se instalaron dependencias.
+
+
+## Spotlight global
+
+- La luz local del hero se sustituyó por una única capa fija al viewport. La posición sigue coordenadas del cursor con interpolación CSS de 180 ms, sin loop permanente ni cálculos durante scroll. Intensidad monocromática menor en claro; capa decorativa con `pointer-events: none`, oculta en táctil y movimiento reducido. Se limpian listeners al cambiar de ruta y desmontar.
+- Playwright con Chrome en producción revisó hero, proyectos y contacto en ambos temas, con coordenadas estables durante scroll, clic a proyectos, foco de teclado y selección de texto. Pixel 7 emulado en ambos temas y preferencia de movimiento reducido mantuvieron la capa oculta; sin errores de página en la prueba de escritorio. Capturas en `build/global-spot-*.png`. No se midió rendimiento ni se probó un dispositivo físico.
+- Lint, TypeScript y build correctos; sin dependencias nuevas.
+
+
+## Ajuste del spotlight en tema claro
+
+- Se reforzó la sombra ambiental gris en claro y se conservaron los valores de luz blanca en oscuro. Variables CSS independientes controlan color, intensidad y opacidad por tema; el cambio se refleja sin recarga. La composición usa `mix-blend-mode: normal`, capa fija sobre el contenido y `pointer-events: none`.
+- Revisión visual de ambos temas en Chrome y prueba de cambio de tema en ambas direcciones. El efecto permanece oculto en Pixel 7 emulado y con movimiento reducido. Capturas `build/spot-correct-light.png` y `build/spot-correct-dark.png`. Lint, TypeScript y build correctos; sin nuevas dependencias.
