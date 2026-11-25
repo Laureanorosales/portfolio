@@ -1,0 +1,4 @@
+.root { position: relative; display: inline-block; max-width: 100%; vertical-align: baseline; }
+.visual { position: absolute; inset: 0; overflow: hidden; white-space: nowrap; pointer-events: none; user-select: none; visibility: hidden; }
+.root[data-scrambling] .original { opacity: 0; }
+.root[data-scrambling] .visual { visibility: visible; }

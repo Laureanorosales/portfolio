@@ -2,6 +2,13 @@
 
 Portfolio personal en español rioplatense. Presenta a Laureano como **Frontend Developer & AI Enthusiast**, Técnico Superior en Desarrollo de Software y con aprendizaje autodidacta continuo. Reúne su práctica en desarrollo frontend, creatividad digital y desarrollo asistido por IA. El caso de DTF Sheet describe el problema, el flujo del editor y su participación en el desarrollo.
 
+
+## Portfolio V4 · Immersive Edition
+
+La portada conserva la identidad editorial monocromática e incorpora «Órbita editorial», una esfera de partículas en Canvas 2D con densidad adaptativa, pausa fuera de pantalla, fallback estático y soporte para movimiento reducido. La portada extiende el motion mediante CSS y el observador de revelado existente; no necesita GSAP ni Three.js.
+
+La revisión QA enfocada de V4, sus límites de medición y capturas están documentados en [FINAL_QA.md](FINAL_QA.md). El móvil se midió mediante emulación de Pixel 7 con CPU 4×; no hay mediciones en dispositivos móviles físicos.
+
 ## Desarrollo local
 
 ```sh

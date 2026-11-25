@@ -1,0 +1,7 @@
+.curtain { display:none; }
+@media (prefers-reduced-motion: no-preference) {
+ .curtain.active { display:flex; position:fixed; inset:0; z-index:100; align-items:center; justify-content:center; pointer-events:none; background:var(--text); color:var(--bg); animation:curtain 700ms cubic-bezier(.76,0,.24,1) both; }
+ .curtain span { font-size:clamp(2rem, 6vw, 6rem); font-weight:400; letter-spacing:-.06em; line-height:1; animation:label 700ms ease both; }
+}
+@keyframes curtain { 0% { clip-path:inset(100% 0 0); } 35%, 58% { clip-path:inset(0); } 100% { clip-path:inset(0 0 100%); } }
+@keyframes label { 0%, 15% { opacity:0; transform:translateY(12px); } 35%, 55% { opacity:1; transform:translateY(0); } 85%, 100% { opacity:0; transform:translateY(-10px); } }

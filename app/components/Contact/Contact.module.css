@@ -1,1 +1,14 @@
  .contact{min-height:0;display:flex;flex-direction:column;justify-content:space-between;gap:3rem}.contact h2{font-size:clamp(3.5rem,8vw,8rem);font-weight:400;line-height:.85;letter-spacing:-.07em}.contact>div{align-self:end;width:min(100%,38rem)}.contact p{font-size:clamp(1.2rem,1.6vw,1.5rem);line-height:1.5;max-width:30ch;margin-bottom:2rem}.contact .actions{gap:1rem}
+@media (prefers-reduced-motion: no-preference) {
+ .contact h2:global(.revealed) { animation: contact-title 1s var(--ease-out) both; }
+ .contact:global(.revealed) > div { animation: contact-copy 750ms 120ms var(--ease-out) both; }
+}
+@keyframes contact-title { from { clip-path: inset(-.2em -.2em 100%); transform: translateY(18px); } to { clip-path: inset(-.2em); transform: none; } }
+@keyframes contact-copy { from { opacity: .6; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.contact h2 span { display:block; }
+@media (prefers-reduced-motion:no-preference) {
+ .contact h2:global(.revealed) { animation:none; }
+ .contact h2:global(.revealed) span { animation:contact-line 900ms var(--ease-out) both; }
+ .contact h2:global(.revealed) span:nth-child(2) { animation-delay:140ms; }
+}
+@keyframes contact-line { from { clip-path:inset(-.2em -.2em 100%); transform:translateY(24px); } to { clip-path:inset(-.2em); transform:none; } }

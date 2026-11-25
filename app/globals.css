@@ -120,3 +120,72 @@ main:focus { outline: none; }
 	from { transform: translateY(5px); }
 	to { transform: translateY(0); }
 }
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+ [data-magnetic] { transform:translate(var(--mag-x, 0px), var(--mag-y, 0px)); transition:transform 250ms var(--ease-out), background-color 180ms, border-color 180ms; }
+ [data-magnetic]:hover:not(:disabled) { transform:translate(var(--mag-x, 0px), var(--mag-y, 0px)); }
+}
+@media (prefers-reduced-motion:no-preference) {
+ @view-transition { navigation:auto; }
+ ::view-transition-old(root) { animation: editorial-out 180ms ease-in both; }
+ ::view-transition-new(root) { animation: editorial-in 380ms var(--ease-out) both; }
+}
+@keyframes editorial-out { to { opacity:0; transform:translateY(-8px); } }
+@keyframes editorial-in { from { opacity:0; transform:translateY(12px); } }
+
+/* Native scroll timelines progressively add ink; unsupported browsers retain solid text. */
+@supports (animation-timeline: view()) and (animation-range: entry 0% exit 100%) and (background-clip: text) {
+ @media (prefers-reduced-motion: no-preference) {
+  [data-text-fill] { view-timeline: --heading-fill block; }
+  [data-text-fill] .fill-ink {
+   background-image: linear-gradient(90deg, var(--text) 45%, color-mix(in srgb, var(--text) 75%, var(--bg)) 55%);
+   background-size: 220% 100%;
+   background-clip: text;
+   color: transparent;
+   animation: editorial-fill linear both;
+   animation-timeline: --heading-fill;
+   animation-range: entry 0% entry 100%;
+  }
+ }
+}
+@keyframes editorial-fill { from { background-position: 100% 0; } to { background-position: 0 0; } }
+
+/* One viewport-fixed, non-interactive layer follows the pointer without scroll measurements. */
+.global-spotlight {
+ --spotlight-color: 35 35 35;
+ --spotlight-intensity: .11;
+ --spotlight-opacity: .95;
+ display: none;
+}
+:root[data-theme="dark"] .global-spotlight {
+ --spotlight-color: 255 255 255;
+ --spotlight-intensity: .055;
+ --spotlight-opacity: 1;
+}
+@media (prefers-color-scheme: dark) {
+ :root:not([data-theme]) .global-spotlight {
+  --spotlight-color: 255 255 255;
+  --spotlight-intensity: .055;
+  --spotlight-opacity: 1;
+ }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+ .global-spotlight {
+  display: block; position: fixed; top: 0; left: 0; z-index: 5;
+  width: 400px; height: 400px; pointer-events: none; opacity: 0;
+  background: radial-gradient(circle, rgb(var(--spotlight-color) / var(--spotlight-intensity)), transparent 70%);
+  transition: opacity 300ms ease;
+ }
+ .global-spotlight[data-active] { opacity: var(--spotlight-opacity); will-change: transform; transition: transform 180ms ease-out, opacity 300ms ease; }
+}
+
+/* Event-driven fallback for browsers without view timelines. */
+@media (prefers-reduced-motion: no-preference) {
+ [data-text-fill][data-scroll-fallback] .fill-ink {
+  background-image: linear-gradient(90deg, var(--text) 45%, var(--muted) 55%);
+  background-size: 220% 100%;
+  background-position: var(--scroll-fill, 0%) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+ }
+}
