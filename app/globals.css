@@ -133,7 +133,7 @@ main:focus { outline: none; }
 @keyframes editorial-in { from { opacity:0; transform:translateY(12px); } }
 
 /* Native scroll timelines progressively add ink; unsupported browsers retain solid text. */
-@supports (animation-timeline: view()) and (background-clip: text) {
+@supports (animation-timeline: view()) and (animation-range: entry 0% exit 100%) and (background-clip: text) {
  @media (prefers-reduced-motion: no-preference) {
   [data-text-fill] { view-timeline: --heading-fill block; }
   [data-text-fill] .fill-ink {
@@ -176,4 +176,16 @@ main:focus { outline: none; }
   transition: opacity 300ms ease;
  }
  .global-spotlight[data-active] { opacity: var(--spotlight-opacity); will-change: transform; transition: transform 180ms ease-out, opacity 300ms ease; }
+}
+
+/* Event-driven fallback for browsers without view timelines. */
+@media (prefers-reduced-motion: no-preference) {
+ [data-text-fill][data-scroll-fallback] .fill-ink {
+  background-image: linear-gradient(90deg, var(--text) 45%, var(--muted) 55%);
+  background-size: 220% 100%;
+  background-position: var(--scroll-fill, 0%) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+ }
 }

@@ -40,24 +40,25 @@ export default function ScrambleMotion() {
   };
   const timers: number[] = [];
   let nextEntry = 0;
-  const observer = new IntersectionObserver(entries => {
+  const observer = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
    for (const entry of entries) if (entry.isIntersecting) {
-    observer.unobserve(entry.target);
+    observer?.unobserve(entry.target);
     const delay = Math.max(0, nextEntry - performance.now());
     nextEntry = performance.now() + delay + 600;
     timers.push(window.setTimeout(() => start(entry.target as HTMLElement), delay));
    }
-  }, { threshold: .5 });
+  }, { threshold: .5 }) : null;
   const cleanups: (() => void)[] = [];
   for (const element of elements) {
-   if (element.dataset.scramble === 'enter') { observer.observe(element); continue; }
+   if (element.dataset.scramble === 'enter' || !hover.matches) observer?.observe(element);
+   if (element.dataset.scramble === 'enter') continue;
    const target = element.closest('a') ?? element;
    const onEnter = (event: Event) => { if (hover.matches && (event as PointerEvent).pointerType !== 'touch') start(element); };
    target.addEventListener('pointerenter', onEnter);
    cleanups.push(() => target.removeEventListener('pointerenter', onEnter));
   }
   motion.addEventListener('change', stop);
-  return () => { observer.disconnect(); timers.forEach(window.clearTimeout); cleanups.forEach(cleanup => cleanup()); motion.removeEventListener('change', stop); stop(); };
+  return () => { observer?.disconnect(); timers.forEach(window.clearTimeout); cleanups.forEach(cleanup => cleanup()); motion.removeEventListener('change', stop); stop(); };
  }, [pathname]);
  return null;
 }

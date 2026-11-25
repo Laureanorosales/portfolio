@@ -148,3 +148,9 @@ Evitar: paletas de acento saturadas, gradientes decorativos, tarjetas repetitiva
 
 - Hasta 767 px el contenido comienza cerca de la navegación y la altura se limita de forma fluida para acercar proyectos. La órbita mide hasta 72 vw (máximo 20 rem), se desplaza hacia la derecha y se superpone parcialmente detrás del nombre; mantiene la tinta, animación y fallback existentes.
 - En la navegación móvil los tres destinos permanecen visibles y distribuidos en una segunda fila. Se evaluó un menú hamburguesa: no se adoptó porque ocultaría tres enlaces que ya caben y requieren acceso directo. Las acciones del hero y la indicación de scroll ofrecen 44 px de altura mínima.
+
+## Movimiento móvil y compatibilidad
+
+- En táctil, los textos con scramble se activan una vez al entrar en pantalla; en escritorio conservan el hover. Los textos originales siguen siendo accesibles y el efecto se omite con movimiento reducido.
+- Los títulos y las imágenes usan scroll timelines cuando están disponibles. Si faltan, un cálculo ligado a eventos de scroll y resize actualiza el relleno y el desplazamiento de las imágenes; sin JavaScript o sin recorte de texto queda el contenido legible. Las imágenes móviles reciben además una perspectiva vertical de hasta 2° según el scroll, sin escuchar ni bloquear gestos.
+- La órbita mantiene su morphing, rotación, deformación, densidad adaptable y suspensión existentes. Su desplazamiento y atenuación responden ahora también al scroll táctil. Spotlight, magnetismo y tilt del cursor permanecen restringidos al puntero fino. La transición de rutas, las entradas y las líneas conservan sus condiciones originales y respetan movimiento reducido.

@@ -20,7 +20,7 @@ export default function Projects() {
 								{project.repositoryUrl && <a href={project.repositoryUrl}>Ver código en GitHub <span aria-hidden="true">↗</span></a>}
 							</div>
 						</div>
-						{project.image && <figure className={styles.preview} data-reveal>
+						{project.image && <figure className={styles.preview} data-reveal data-scroll-preview>
 							<Link href={project.caseUrl ?? project.repositoryUrl ?? "#"} className={styles.previewLink} data-tilt aria-label={`Ver proyecto ${project.title}`}>
 							<Image
 								src={project.image.src}

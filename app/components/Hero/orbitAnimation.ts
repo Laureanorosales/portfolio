@@ -121,7 +121,7 @@ export function createOrbitAnimation(art: HTMLElement, canvas: HTMLCanvasElement
 		}
 		if (measureHero) {
 			heroRect = hero.getBoundingClientRect();
-			targetScroll = finePointer.matches ? Math.max(0, Math.min(1, -heroRect.top / heroRect.height)) : 0;
+			targetScroll = Math.max(0, Math.min(1, -heroRect.top / heroRect.height));
 			measureHero = false;
 		}
 

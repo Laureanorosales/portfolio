@@ -6,6 +6,7 @@ import Reveal from './components/Reveal';
 import RouteCurtain from './components/RouteCurtain';
 import MotionInteractions from './components/MotionInteractions';
 import ScrambleMotion from './components/ScrambleMotion';
+import ScrollMotion from './components/ScrollMotion';
 import { themeStorageKey } from './theme';
 import './globals.css';
 
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 				<Reveal />
 				<MotionInteractions />
 				<ScrambleMotion />
+				<ScrollMotion />
 				<RouteCurtain />
 			</body>
 		</html>

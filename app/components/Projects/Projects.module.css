@@ -24,7 +24,7 @@
  .links a:hover, .links a:focus-visible { transform: translateY(-2px); }
 }
 
-@supports (animation-timeline: view()) {
+@supports (animation-timeline: view()) and (animation-range: entry 0% exit 100%) {
  @media (prefers-reduced-motion: no-preference) {
   .preview { view-timeline-name: --preview; view-timeline-axis: block; }
   .preview img { animation: preview-drift linear both; animation-timeline: --preview; animation-range: entry 0% exit 100%; }
@@ -45,4 +45,15 @@
  .previewLink:hover { --tilt-scale: 1.01; }
  .previewLabel { transform:translateZ(22px) translateY(5px); }
  .previewLink:hover .previewLabel, .previewLink:focus-visible .previewLabel { transform:translateZ(22px); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+ .preview:global([data-scroll-fallback]) img {
+  transform: scale(1.06) translateY(var(--scroll-drift, 0%));
+  transition: none;
+ }
+ .preview:global([data-scroll-fallback]):global(.revealed) img { animation: none; }
+ .preview:global([data-scroll-fallback]):global(.revealed) .previewLink { animation: image-in 950ms var(--ease-out) both; }
+ .preview:global([data-scroll-perspective]) { perspective: 1200px; }
+ .preview:global([data-scroll-perspective]) .previewLink { transform: rotateX(var(--scroll-tilt, 0deg)); transform-style: preserve-3d; }
 }
